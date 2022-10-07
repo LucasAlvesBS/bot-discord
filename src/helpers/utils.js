@@ -1,6 +1,6 @@
 require('dotenv').config();
 const Twit = require('twitter-v2');
-const { bearer_token } = require('../config/credential');
+const { bearer_token } = require('../config/credentials');
 
 const twitter = new Twit({ bearer_token });
 
