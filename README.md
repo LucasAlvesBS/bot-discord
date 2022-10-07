@@ -1,6 +1,7 @@
 # Sobre
 
-Este projeto tem o intuito de popular mensagens do twitter de um determinado perfil no discord.
+Este projeto tem o intuito de criar um bot que popula mensagens do twitter de um determinado
+perfil no discord.
 
 # Bibliotecas
 
