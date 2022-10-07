@@ -2,10 +2,6 @@
 
 Este projeto tem o intuito de popular mensagens do twitter de um determinado perfil no discord.
 
-# Time
-
-- Desenvolvedor: Lucas Alves ([Linkedin](https://www.linkedin.com/in/lucas-alves-090524225/))
-
 # Bibliotecas
 
 - "discord.js": "^14.5.0"
