@@ -2,10 +2,9 @@ require('dotenv').config();
 const Twit = require('twitter-v2');
 const { Client, GatewayIntentBits, Partials } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds], partials: [Partials.Channel] });
+const { bearer_token } = require('./config/credential');
 
-const twitter = new Twit({
-  bearer_token: process.env.TWITTER_BEARER_TOKEN,
-})
+const twitter = new Twit({ bearer_token });
 
 const sendMessage = async (tweet, client) => {
   const url = "https://twitter.com/user/status/" + tweet.id;
