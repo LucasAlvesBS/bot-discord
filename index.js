@@ -4,21 +4,21 @@ const { Client, GatewayIntentBits, Partials } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds], partials: [Partials.Channel] });
 
 
-var T = new Twit({
-  bearer_token: process.env.TWITTER_BEARER_TOKEN
+var twitter = new Twit({
+  bearer_token: process.env.TWITTER_BEARER_TOKEN,
 })
 
-async function sendMessage (tweet, client) {
+const sendMessage = async (tweet, client) => {
   const url = "https://twitter.com/user/status/" + tweet.id;
   try {
     const channel = await client.channels.fetch(process.env.DISCORD_CHANNEL_ID)
-    channel.send(url)
+    channel.send(url);
   } catch (error) {
     console.error(error);
   }
 }
 
-async function listenForever(streamFactory, dataConsumer) {
+const listenForever = async (streamFactory, dataConsumer) => {
   try {
     for await (const { data } of streamFactory()) {
       dataConsumer(data);
@@ -31,7 +31,7 @@ async function listenForever(streamFactory, dataConsumer) {
   }
 }
 
-async function  setup () {
+const setup = async () => {
   const endpointParameters = {
       'tweet.fields': [ 'author_id', 'conversation_id' ],
       'expansions': [ 'author_id', 'referenced_tweets.id' ],
@@ -44,21 +44,21 @@ async function  setup () {
         {"value": "from:"+ process.env.TWITTER_USER_NAME, "tag": "from me!!!"}
       ]
     }
-    const r = await T.post("tweets/search/stream/rules", body);
+    const r = await twitter.post("tweets/search/stream/rules", body);
     console.log(r);
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
 
   listenForever(
-    () => T.stream('tweets/search/stream', endpointParameters),
+    () => twitter.stream('tweets/search/stream', endpointParameters),
     (data) => sendMessage(data, client)
   );
 }
 
-client.login(process.env.DISCORD_TOKEN)
+client.login(process.env.DISCORD_TOKEN);
 
 client.on('ready', () => {
-  console.log('Discord ready')
-  setup()
+  console.log('Discord ready');
+  setup();
 })
