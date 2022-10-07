@@ -3,7 +3,7 @@ const Twit = require('twitter-v2');
 const { Client, GatewayIntentBits, Partials } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds], partials: [Partials.Channel] });
 
-var twitter = new Twit({
+const twitter = new Twit({
   bearer_token: process.env.TWITTER_BEARER_TOKEN,
 })
 
