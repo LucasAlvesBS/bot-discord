@@ -1,6 +1,6 @@
 require('dotenv').config();
 const { Client, GatewayIntentBits, Partials } = require('discord.js');
-const utils = require('./helpers/utils');
+const utils = require('./twitter/main');
 const { discord_token } = require('./config/credentials');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds], partials: [Partials.Channel] });
