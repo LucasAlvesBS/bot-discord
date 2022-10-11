@@ -1,18 +1,9 @@
 require('dotenv').config();
 const Twit = require('twitter-v2');
 const { bearer_token } = require('../config/credentials');
+const send = require('../helpers/functions/send-message.function');
 
 const twitter = new Twit({ bearer_token });
-
-const sendMessage = async (tweet, client) => {
-  const url = "https://twitter.com/user/status/" + tweet.id;
-  try {
-    const channel = await client.channels.fetch(process.env.DISCORD_CHANNEL_ID)
-    channel.send(url);
-  } catch (error) {
-    console.error(error);
-  }
-}
 
 const listenForever = async (streamFactory, dataConsumer) => {
   try {
@@ -48,7 +39,7 @@ const setup = async (client) => {
 
   listenForever(
     () => twitter.stream('tweets/search/stream', endpointParameters),
-    (data) => sendMessage(data, client)
+    (data) => send.sendMessage(data, client)
   );
 }
 
